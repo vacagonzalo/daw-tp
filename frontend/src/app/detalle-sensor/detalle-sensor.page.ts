@@ -6,6 +6,8 @@ import { DispositivoService } from '../services/dispositivo.service';
 import { ActivatedRoute } from '@angular/router';
 import { RiegoService } from '../services/riego.service';
 import { FilaLogRiego } from '../models/filaLogRiego.interface';
+import { MedicionesService } from '../services/mediciones.service';
+import { newMedicion } from '../models/newMedicion.interface';
 declare var require: any;
 require('highcharts/highcharts-more')(Highcharts);
 require('highcharts/modules/solid-gauge')(Highcharts);
@@ -27,7 +29,12 @@ export class DetalleSensorPage implements OnInit {
 
   public laGranBilardo: Array<Dispositivo>;
 
-  constructor(private dServ: DispositivoService, private router: ActivatedRoute, private rServ: RiegoService) {
+  constructor(
+    private dServ: DispositivoService, 
+    private router: ActivatedRoute, 
+    private rServ: RiegoService,
+    private mServ: MedicionesService
+    ) {
     this.laGranBilardo = new Array<Dispositivo>();
     setTimeout(() => {
       console.log("Cambio el valor del sensor");
@@ -148,7 +155,30 @@ export class DetalleSensorPage implements OnInit {
       this.dispositivo.electrovalvula.apertura = 0;
       this.mensajeBoton = "ABRIR ELECTROVALVULA" + + this.dispositivo.electrovalvula.id;
       console.log(res);
+      let medicion: newMedicion = {
+        valor: this.valorAleatorio(),
+        dispositivoId: this.dispositivo.id
+      };
+      this.mServ.newMedicion(medicion).then( (res) => {
+        console.log(res);
+
+        this.myChart.update(
+          {
+            series: [
+              {
+                name: 'kPA',
+                data: [parseInt(medicion.valor)],
+                tooltip: { valueSuffix: ' kPA' }
+              }
+            ]
+          }
+        );
+      })
     })
+  }
+
+  public valorAleatorio(): string {
+    return Math.floor(100 * Math.random()).toString();
   }
 
   public actualizarValvula() {
