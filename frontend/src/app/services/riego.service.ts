@@ -17,7 +17,7 @@ export class RiegoService {
       .then((table: Array<FilaLogRiego>) => {
         let logRiego: Array<RiegoLog> = new Array<RiegoLog>();
         table.forEach(row => logRiego.push(new RiegoLog(
-          new Electrovalvula(row.electralvulaId),
+          new Electrovalvula(row.electrovalvulaId),
           row.apertura,
           row.fecha
         )))
@@ -30,7 +30,7 @@ export class RiegoService {
   }
 
   public newRiegoLog(fila: FilaLogRiego) {
-    return this._http.post(`http://localhost:5000/riego/`,[fila.apertura, fila.electralvulaId]).toPromise()
+    return this._http.post(`http://localhost:5000/riego/`,[fila.apertura, fila.electrovalvulaId]).toPromise()
       .then((result) => {
         return result;
       });

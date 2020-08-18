@@ -51,6 +51,10 @@ export class DetalleSensorPage implements OnInit {
       console.log(d);
       this.dispositivo = d;
       this.laGranBilardo.push(this.dispositivo);
+      if(this.dispositivo.electrovalvula.apertura == 0)
+        this.mensajeBoton = "ABRIR ELECTROVALVULA " + this.dispositivo.electrovalvula.id;
+      else
+        this.mensajeBoton = "CERRAR ELECTROVALVULA " + this.dispositivo.electrovalvula.id;
     });
   }
 
@@ -133,33 +137,38 @@ export class DetalleSensorPage implements OnInit {
     this.myChart = Highcharts.chart('highcharts', this.chartOptions);
   }
 
-  public actualizarValvula() {
-    if (this.dispositivo.electrovalvula.apertura != 0) {
-      console.log("cerrando valvula");
-      let data = {
-        logRiegoId: 0,
-        apertura: 0,
-        fecha: new Date(),
-        electralvulaId: this.dispositivo.electrovalvula.id
-      }
-      this.rServ.newRiegoLog(data).then((result) => {
-        console.log(result);
-        console.log("valvula cerrada");
-        this.mensajeBoton = "ABRIR VALVULA";
-      })
-    } else {
-      console.log("abriendo valvula");
-      let data = {
-        logRiegoId: 0,
-        apertura: 100,
-        fecha: new Date(),
-        electralvulaId: this.dispositivo.electrovalvula.id
-      }
-      this.rServ.newRiegoLog(data).then((result) => {
-        console.log(result);
-        console.log("valvula abierta");
-        this.mensajeBoton = "CERRAR VALVULA";
-      })
+  public cerrarValvula() {
+    let data:FilaLogRiego = { 
+      logRiegoId: 0,
+      apertura: 0,
+      fecha: new Date(), 
+      electrovalvulaId: this.dispositivo.electrovalvula.id
     }
+    this.rServ.newRiegoLog(data).then( (res) => {
+      this.dispositivo.electrovalvula.apertura = 0;
+      this.mensajeBoton = "ABRIR ELECTROVALVULA" + + this.dispositivo.electrovalvula.id;
+      console.log(res);
+    })
+  }
+
+  public actualizarValvula() {
+    if(this.dispositivo.electrovalvula.apertura == 0)
+      this.abrirValvula();
+    else
+      this.cerrarValvula();
+  }
+
+  public abrirValvula() {
+    let data: FilaLogRiego = {
+      logRiegoId: 0,
+      apertura: 100,
+      fecha: new Date(),
+      electrovalvulaId: this.dispositivo.electrovalvula.id
+    }
+    this.rServ.newRiegoLog(data).then( (res) => {
+      this.dispositivo.electrovalvula.apertura = 100;
+      this.mensajeBoton = "CERRAR ELECTROVALVULA" + + this.dispositivo.electrovalvula.id;
+      console.log(res);
+    })
   }
 }
