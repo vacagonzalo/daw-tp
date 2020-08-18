@@ -1,23 +1,12 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
   selector: '[appResaltar]'
 })
 export class ResaltarDirective {
 
-  constructor(private elemento:ElementRef) { }
-  @Input()colorBase: string;
-  @Input('appResaltar') resaltarColor: string;
-
-  @HostListener('mouseenter') onMouseEnter() {
-    this.resaltar(this.resaltarColor || this.colorBase || 'red');
+  constructor(private elemento: ElementRef) {
+    this.elemento.nativeElement.style.color = "red";
   }
 
-  @HostListener('mouseleave') onMouseLeave() {
-    this.resaltar(null);
-  }
-
-  private resaltar(color:string):void {
-    this.elemento.nativeElement.style.backgrondColor = color;
-  }
 }

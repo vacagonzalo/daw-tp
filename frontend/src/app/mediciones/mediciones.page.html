@@ -5,7 +5,7 @@
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Mediciones</ion-title>
+    <ion-title appResaltar>Mediciones</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,7 +15,7 @@
       <th>Fecha</th>
       <th>Valor</th>
     </tr>
-    <tr *ngFor="let m of measurements" [appResaltar]="color" >
+    <tr *ngFor="let m of measurements">
       <td>{{m.fecha | customFecha}}</td>
       <td>{{m.valor}}</td>
     </tr>
