@@ -5,15 +5,24 @@ Autor: Ing. Gonzalo Nahuel Vaca
 Se necesita tener instalados los servicios de **Docker** y **nodejs**
 
 ## Instrucciones de uso
-1. Clonar el repositorio
-2. Navegar hasta la carpeta database
-3. Ejecutar *./mysql.sh*, luego ejecutar *./phpmyadmin.sh
-4. Abrir phpmyadmin en el browser (localhost:80), e importar el archivo *mysql-server.sql*
-5. Navegar hasta la carpeta server
-6. Ejecutar el comando *npm run dev*
-7. Navegar hasta la carpeta frontend
-8. Ejecutar el comando *ionic run*
-9. Utilizar el archivo .pdf que hay en la raíz para comprender lo que se espera de la app
+Clonar el repositorio
+
+### Levantar la base de datos
+1. Navegar hasta la carpeta database
+2. Ejecutar *./mysql.sh*, luego ejecutar *./phpmyadmin.sh
+3. Abrir phpmyadmin en el browser (localhost:80)
+4. user: root / password: userpass
+5. importar el archivo *mysql-server.sql*
+
+### Levantar la api
+1. Navegar hasta la carpeta server
+2. Ejecutar el comando *npm install*
+3. Ejecutar el comando *npm run dev*
+
+### Levantar el frontend
+1. Navegar hasta la carpeta frontend
+2. Ejecutar el comando *npm install*
+3. Ejecutar el comando *ionic serve -o*
 
 Si *./mysql.sh* falla en abrir es que faltan los permisos necesarios.
 
