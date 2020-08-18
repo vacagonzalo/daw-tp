@@ -5,12 +5,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CustomPipe implements PipeTransform {
 
-  transform(value: Date): unknown {
-    let dia:    string = ('0' + value.getDate()).slice(-2);
-    let mes:    string = ('0' + (value.getMonth() + 1)).slice(-2);
-    let anno:   string = value.getFullYear().toString();
-    let hora:   string = value.getHours.toString();
-    let minuto: string = value.getMinutes.toString();
+  transform(value: string): string {
+    let fecha = new Date(value);
+    let dia: string = ('0' + fecha.getDate()).slice(-2);
+    let mes: string = ('0' + (fecha.getMonth() + 1)).slice(-2);
+    let anno: string = fecha.getFullYear().toString();
+    let hora: string = fecha.getHours().toString();
+    let minuto: string = fecha.getMinutes().toString();
     return dia + '/' + mes + '/' + anno + ' | ' + hora + ':' + minuto;
   }
 

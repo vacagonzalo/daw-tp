@@ -5,8 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { MedicionesPageRoutingModule } from './mediciones-routing.module';
-
 import { MedicionesPage } from './mediciones.page';
+import { CustomPipe } from '../pipes/custom.pipe';
+import { ResaltarDirective} from '../directives/resaltar.directive'
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { MedicionesPage } from './mediciones.page';
     IonicModule,
     MedicionesPageRoutingModule
   ],
-  declarations: [MedicionesPage]
+  declarations: [MedicionesPage, CustomPipe, ResaltarDirective]
 })
 export class MedicionesPageModule {}
