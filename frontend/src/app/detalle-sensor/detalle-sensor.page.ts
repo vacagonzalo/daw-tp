@@ -153,7 +153,7 @@ export class DetalleSensorPage implements OnInit {
     }
     this.rServ.newRiegoLog(data).then( (res) => {
       this.dispositivo.electrovalvula.apertura = 0;
-      this.mensajeBoton = "ABRIR ELECTROVALVULA" + + this.dispositivo.electrovalvula.id;
+      this.mensajeBoton = "ABRIR ELECTROVALVULA" + ' ' + this.dispositivo.electrovalvula.id;
       console.log(res);
       let medicion: newMedicion = {
         valor: this.valorAleatorio(),
@@ -197,7 +197,7 @@ export class DetalleSensorPage implements OnInit {
     }
     this.rServ.newRiegoLog(data).then( (res) => {
       this.dispositivo.electrovalvula.apertura = 100;
-      this.mensajeBoton = "CERRAR ELECTROVALVULA" + + this.dispositivo.electrovalvula.id;
+      this.mensajeBoton = "CERRAR ELECTROVALVULA" + ' ' + this.dispositivo.electrovalvula.id;
       console.log(res);
     })
   }
